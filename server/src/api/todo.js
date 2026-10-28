@@ -6,7 +6,7 @@ const router = express.Router()
 // 1. 获取所有待办
 router.get('/', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM todo ORDER BY id DESC')
+    const [rows] = await pool.query('SELECT * FROM todo ORDER BY id DESC')  // 这里必须将id输出，这样前端才能获取id
     res.json({ code: 200, data: rows })
   } catch (e) {
     res.status(500).json({ code: 500, msg: e.message })
@@ -42,10 +42,10 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ code: 404, msg: '待办不存在' })
     }
     const [rows] = await pool.query(
-      'SELECT * FROM todo WHERE id = ?',
+      'SELECT isCompleted, text FROM todo WHERE id = ?',
       [numId]
     )
-    res.json({ code: 200, data: rows[0] })
+    res.json({ code: 200, msg: '修改成功' })  
   } catch (e) {
     res.status(500).json({ code: 500, msg: e.message })
   }
@@ -63,12 +63,11 @@ router.delete('/:id', async (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ code: 404, msg: '待办不存在' })
     }
-    res.json({ code: 200, data: { id: numId } })
+    res.json({ code: 200, msg: '删除成功' }) 
   } catch (e) {
     res.status(500).json({ code: 500, msg: e.message })
   }
 })
-
 
 
 module.exports = router

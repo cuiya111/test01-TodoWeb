@@ -336,7 +336,7 @@ POST /api/todo
 
 **响应 200：**
 ```json
-{ "code": 200, "data": { "id": 1, "isCompleted": 0, "text": "学习 Vue" } }
+{ "code": 200, "data": { "isCompleted": 0, "text": "学习 Vue" } }
 ```
 
 **响应 400（text 为空）：**
@@ -355,7 +355,7 @@ PUT /api/todo/:id
 
 **响应 200：**
 ```json
-{ "code": 200, "data": { "id": 1, "isCompleted": 1, "text": "学习 Vue" } }
+{ "code": 200, "msg": "修改成功" }
 ```
 
 **响应 400（id 非法）：**
@@ -376,7 +376,7 @@ DELETE /api/todo/:id
 
 **响应 200：**
 ```json
-{ "code": 200, "data": { "id": 1 } }
+{ "code": 200, "msg": "删除成功" }
 ```
 
 **响应 400（id 非法）：**
